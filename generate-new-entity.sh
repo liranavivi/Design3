@@ -133,15 +133,6 @@ public class ${entity_name}Entity : BaseEntity
     [StringLength(200, ErrorMessage = \"Name cannot exceed 200 characters\")]
     public string Name { get; set; } = string.Empty;
 
-    [BsonElement(\"version\")]
-    [Required(ErrorMessage = \"Version is required\")]
-    [StringLength(50, ErrorMessage = \"Version cannot exceed 50 characters\")]
-    public string Version { get; set; } = string.Empty;
-
-    [BsonElement(\"description\")]
-    [StringLength(1000, ErrorMessage = \"Description cannot exceed 1000 characters\")]
-    public string Description { get; set; } = string.Empty;
-
     [BsonElement(\"configuration\")]
     public Dictionary<string, object> Configuration { get; set; } = new();
 

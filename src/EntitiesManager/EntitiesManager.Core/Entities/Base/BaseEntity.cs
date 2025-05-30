@@ -24,6 +24,11 @@ public abstract class BaseEntity
     [BsonElement("updatedBy")]
     public string UpdatedBy { get; set; } = string.Empty;
 
+    [BsonElement("version")]
+    [Required(ErrorMessage = "Version is required")]
+    [StringLength(50, ErrorMessage = "Version cannot exceed 50 characters")]
+    public string Version { get; set; } = string.Empty;
+
     [BsonElement("description")]
     [StringLength(1000, ErrorMessage = "Description cannot exceed 1000 characters")]
     public string Description { get; set; } = string.Empty;
