@@ -38,21 +38,11 @@ services:
       - "4318:4318"   # OTLP HTTP receiver
       - "8888:8888"   # Prometheus metrics
       - "8889:8889"   # Prometheus exporter metrics
-    depends_on:
-      - jaeger
+
     networks:
       - entitiesmanager-network
 
-  jaeger:
-    image: jaegertracing/all-in-one:latest
-    container_name: entitiesmanager-jaeger
-    ports:
-      - "16686:16686"
-      - "14250:14250"
-    environment:
-      COLLECTOR_OTLP_ENABLED: true
-    networks:
-      - entitiesmanager-network
+
 
 volumes:
   mongodb_data:
