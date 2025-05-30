@@ -1,6 +1,6 @@
 using EntitiesManager.Core.Entities.Base;
 
-namespace EntitiesManager.Core.Interfaces.Repositories;
+namespace EntitiesManager.Core.Interfaces.Repositories.Base;
 
 public interface IBaseRepository<T> where T : BaseEntity
 {

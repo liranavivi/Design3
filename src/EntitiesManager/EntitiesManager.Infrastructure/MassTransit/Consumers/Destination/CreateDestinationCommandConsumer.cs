@@ -36,6 +36,7 @@ public class CreateDestinationCommandConsumer : IConsumer<CreateDestinationComma
                 Address = context.Message.Address,
                 Version = context.Message.Version,
                 Name = context.Message.Name,
+                Description = context.Message.Description,
                 Configuration = context.Message.Configuration ?? new Dictionary<string, object>(),
                 CreatedBy = context.Message.RequestedBy
             };
@@ -48,6 +49,7 @@ public class CreateDestinationCommandConsumer : IConsumer<CreateDestinationComma
                 Address = created.Address,
                 Version = created.Version,
                 Name = created.Name,
+                Description = created.Description,
                 Configuration = created.Configuration,
                 CreatedAt = created.CreatedAt,
                 CreatedBy = created.CreatedBy

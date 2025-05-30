@@ -1,4 +1,5 @@
 using EntitiesManager.Core.Entities;
+using EntitiesManager.Core.Interfaces.Repositories.Base;
 
 namespace EntitiesManager.Core.Interfaces.Repositories;
 

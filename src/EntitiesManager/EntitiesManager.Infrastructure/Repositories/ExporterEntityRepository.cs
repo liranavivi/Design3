@@ -2,6 +2,7 @@
 using EntitiesManager.Core.Interfaces.Repositories;
 using EntitiesManager.Core.Interfaces.Services;
 using EntitiesManager.Infrastructure.MassTransit.Events;
+using EntitiesManager.Infrastructure.Repositories.Base;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
@@ -71,6 +72,7 @@ public class ExporterEntityRepository : BaseRepository<ExporterEntity>, IExporte
             Address = entity.Address,
             Version = entity.Version,
             Name = entity.Name,
+            Description = entity.Description,
             Configuration = entity.Configuration,
             CreatedAt = entity.CreatedAt,
             CreatedBy = entity.CreatedBy
@@ -86,6 +88,7 @@ public class ExporterEntityRepository : BaseRepository<ExporterEntity>, IExporte
             Address = entity.Address,
             Version = entity.Version,
             Name = entity.Name,
+            Description = entity.Description,
             Configuration = entity.Configuration,
             UpdatedAt = entity.UpdatedAt,
             UpdatedBy = entity.UpdatedBy

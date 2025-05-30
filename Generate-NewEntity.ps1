@@ -142,6 +142,7 @@ function New-RepositoryInterface {
     if ($EntityName -eq "Source") {
         $content = @"
 using EntitiesManager.Core.Entities;
+using EntitiesManager.Core.Interfaces.Repositories.Base;
 
 namespace EntitiesManager.Core.Interfaces.Repositories;
 
@@ -150,12 +151,14 @@ public interface ISourceEntityRepository : IBaseRepository<SourceEntity>
     Task<IEnumerable<SourceEntity>> GetByAddressAsync(string address);
     Task<IEnumerable<SourceEntity>> GetByVersionAsync(string version);
     Task<IEnumerable<SourceEntity>> GetByNameAsync(string name);
+    Task<IEnumerable<SourceEntity>> SearchByDescriptionAsync(string searchTerm);
 }
 "@
     } else {
         # For other entities, use the SourceEntity pattern
         $content = @"
 using EntitiesManager.Core.Entities;
+using EntitiesManager.Core.Interfaces.Repositories.Base;
 
 namespace EntitiesManager.Core.Interfaces.Repositories;
 
@@ -164,6 +167,7 @@ public interface I${EntityName}EntityRepository : IBaseRepository<${EntityName}E
     Task<IEnumerable<${EntityName}Entity>> GetByAddressAsync(string address);
     Task<IEnumerable<${EntityName}Entity>> GetByVersionAsync(string version);
     Task<IEnumerable<${EntityName}Entity>> GetByNameAsync(string name);
+    Task<IEnumerable<${EntityName}Entity>> SearchByDescriptionAsync(string searchTerm);
 }
 "@
     }
@@ -186,6 +190,7 @@ using EntitiesManager.Core.Entities;
 using EntitiesManager.Core.Interfaces.Repositories;
 using EntitiesManager.Core.Interfaces.Services;
 using EntitiesManager.Infrastructure.MassTransit.Events;
+using EntitiesManager.Infrastructure.Repositories.Base;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
@@ -296,6 +301,7 @@ using EntitiesManager.Core.Entities;
 using EntitiesManager.Core.Interfaces.Repositories;
 using EntitiesManager.Core.Interfaces.Services;
 using EntitiesManager.Infrastructure.MassTransit.Events;
+using EntitiesManager.Infrastructure.Repositories.Base;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
@@ -420,6 +426,7 @@ public class CreateSourceCommand
     public string Address { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
     public Dictionary<string, object> Configuration { get; set; } = new();
     public string RequestedBy { get; set; } = string.Empty;
 }
@@ -430,6 +437,7 @@ public class UpdateSourceCommand
     public string Address { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
     public Dictionary<string, object> Configuration { get; set; } = new();
     public string RequestedBy { get; set; } = string.Empty;
 }
@@ -456,6 +464,7 @@ public class Create${EntityName}Command
     public string Address { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
     public Dictionary<string, object> Configuration { get; set; } = new();
     public string RequestedBy { get; set; } = string.Empty;
 }
@@ -466,6 +475,7 @@ public class Update${EntityName}Command
     public string Address { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
     public Dictionary<string, object> Configuration { get; set; } = new();
     public string RequestedBy { get; set; } = string.Empty;
 }
@@ -504,6 +514,7 @@ public class SourceCreatedEvent
     public string Address { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
     public Dictionary<string, object> Configuration { get; set; } = new();
     public DateTime CreatedAt { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
@@ -515,6 +526,7 @@ public class SourceUpdatedEvent
     public string Address { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
     public Dictionary<string, object> Configuration { get; set; } = new();
     public DateTime UpdatedAt { get; set; }
     public string UpdatedBy { get; set; } = string.Empty;
@@ -538,6 +550,7 @@ public class ${EntityName}CreatedEvent
     public string Address { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
     public Dictionary<string, object> Configuration { get; set; } = new();
     public DateTime CreatedAt { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
@@ -549,6 +562,7 @@ public class ${EntityName}UpdatedEvent
     public string Address { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
     public Dictionary<string, object> Configuration { get; set; } = new();
     public DateTime UpdatedAt { get; set; }
     public string UpdatedBy { get; set; } = string.Empty;

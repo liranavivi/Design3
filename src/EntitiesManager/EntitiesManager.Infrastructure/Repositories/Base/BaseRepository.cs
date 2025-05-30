@@ -1,12 +1,12 @@
 using EntitiesManager.Core.Entities.Base;
 using EntitiesManager.Core.Exceptions;
-using EntitiesManager.Core.Interfaces.Repositories;
+using EntitiesManager.Core.Interfaces.Repositories.Base;
 using EntitiesManager.Core.Interfaces.Services;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using System.Diagnostics;
 
-namespace EntitiesManager.Infrastructure.Repositories;
+namespace EntitiesManager.Infrastructure.Repositories.Base;
 
 public abstract class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
 {

@@ -42,6 +42,7 @@ public class UpdateSourceCommandConsumer : IConsumer<UpdateSourceCommand>
             existing.Address = context.Message.Address;
             existing.Version = context.Message.Version;
             existing.Name = context.Message.Name;
+            existing.Description = context.Message.Description;
             existing.Configuration = context.Message.Configuration ?? new Dictionary<string, object>();
             existing.UpdatedBy = context.Message.RequestedBy;
 
@@ -53,6 +54,7 @@ public class UpdateSourceCommandConsumer : IConsumer<UpdateSourceCommand>
                 Address = updated.Address,
                 Version = updated.Version,
                 Name = updated.Name,
+                Description = updated.Description,
                 Configuration = updated.Configuration,
                 UpdatedAt = updated.UpdatedAt,
                 UpdatedBy = updated.UpdatedBy
