@@ -19,10 +19,10 @@ public class ProtocolEntityRepository : BaseRepository<ProtocolEntity>, IProtoco
     {
         var parts = compositeKey.Split('_', 2);
         if (parts.Length != 2)
-            throw new ArgumentException("Invalid composite key format for ProtocolEntity. Expected format: 'address_version'");
+            throw new ArgumentException("Invalid composite key format for ProtocolEntity. Expected format: 'name_version'");
 
         return Builders<ProtocolEntity>.Filter.And(
-            Builders<ProtocolEntity>.Filter.Eq(x => x.Address, parts[0]),
+            Builders<ProtocolEntity>.Filter.Eq(x => x.Name, parts[0]),
             Builders<ProtocolEntity>.Filter.Eq(x => x.Version, parts[1])
         );
     }
@@ -31,7 +31,7 @@ public class ProtocolEntityRepository : BaseRepository<ProtocolEntity>, IProtoco
     {
         // Composite key index for uniqueness
         var compositeKeyIndex = Builders<ProtocolEntity>.IndexKeys
-            .Ascending(x => x.Address)
+            .Ascending(x => x.Name)
             .Ascending(x => x.Version);
 
         var indexOptions = new CreateIndexOptions { Unique = true };
@@ -41,15 +41,7 @@ public class ProtocolEntityRepository : BaseRepository<ProtocolEntity>, IProtoco
         _collection.Indexes.CreateOne(new CreateIndexModel<ProtocolEntity>(
             Builders<ProtocolEntity>.IndexKeys.Ascending(x => x.Name)));
         _collection.Indexes.CreateOne(new CreateIndexModel<ProtocolEntity>(
-            Builders<ProtocolEntity>.IndexKeys.Ascending(x => x.Address)));
-        _collection.Indexes.CreateOne(new CreateIndexModel<ProtocolEntity>(
             Builders<ProtocolEntity>.IndexKeys.Ascending(x => x.Version)));
-    }
-
-    public async Task<IEnumerable<ProtocolEntity>> GetByAddressAsync(string address)
-    {
-        var filter = Builders<ProtocolEntity>.Filter.Eq(x => x.Address, address);
-        return await _collection.Find(filter).ToListAsync();
     }
 
     public async Task<IEnumerable<ProtocolEntity>> GetByVersionAsync(string version)
@@ -69,11 +61,9 @@ public class ProtocolEntityRepository : BaseRepository<ProtocolEntity>, IProtoco
         var createdEvent = new ProtocolCreatedEvent
         {
             Id = entity.Id,
-            Address = entity.Address,
             Version = entity.Version,
             Name = entity.Name,
             Description = entity.Description,
-            Configuration = entity.Configuration,
             CreatedAt = entity.CreatedAt,
             CreatedBy = entity.CreatedBy
         };
@@ -85,11 +75,9 @@ public class ProtocolEntityRepository : BaseRepository<ProtocolEntity>, IProtoco
         var updatedEvent = new ProtocolUpdatedEvent
         {
             Id = entity.Id,
-            Address = entity.Address,
             Version = entity.Version,
             Name = entity.Name,
             Description = entity.Description,
-            Configuration = entity.Configuration,
             UpdatedAt = entity.UpdatedAt,
             UpdatedBy = entity.UpdatedBy
         };

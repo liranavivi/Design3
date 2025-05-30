@@ -26,18 +26,16 @@ public class CreateProtocolCommandConsumer : IConsumer<CreateProtocolCommand>
 
     public async Task Consume(ConsumeContext<CreateProtocolCommand> context)
     {
-        _logger.LogInformation("Processing CreateProtocolCommand for {Address}_{Version}",
-            context.Message.Address, context.Message.Version);
+        _logger.LogInformation("Processing CreateProtocolCommand for {Name}_{Version}",
+            context.Message.Name, context.Message.Version);
 
         try
         {
             var entity = new ProtocolEntity
             {
-                Address = context.Message.Address,
                 Version = context.Message.Version,
                 Name = context.Message.Name,
                 Description = context.Message.Description,
-                Configuration = context.Message.Configuration ?? new Dictionary<string, object>(),
                 CreatedBy = context.Message.RequestedBy
             };
 
@@ -46,19 +44,17 @@ public class CreateProtocolCommandConsumer : IConsumer<CreateProtocolCommand>
             await _publishEndpoint.Publish(new ProtocolCreatedEvent
             {
                 Id = created.Id,
-                Address = created.Address,
                 Version = created.Version,
                 Name = created.Name,
                 Description = created.Description,
-                Configuration = created.Configuration,
                 CreatedAt = created.CreatedAt,
                 CreatedBy = created.CreatedBy
             });
 
             await context.RespondAsync(created);
 
-            _logger.LogInformation("Successfully processed CreateProtocolCommand for {Address}_{Version}",
-                context.Message.Address, context.Message.Version);
+            _logger.LogInformation("Successfully processed CreateProtocolCommand for {Name}_{Version}",
+                context.Message.Name, context.Message.Version);
         }
         catch (DuplicateKeyException ex)
         {
@@ -67,8 +63,8 @@ public class CreateProtocolCommandConsumer : IConsumer<CreateProtocolCommand>
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error processing CreateProtocolCommand for {Address}_{Version}",
-                context.Message.Address, context.Message.Version);
+            _logger.LogError(ex, "Error processing CreateProtocolCommand for {Name}_{Version}",
+                context.Message.Name, context.Message.Version);
             throw;
         }
     }

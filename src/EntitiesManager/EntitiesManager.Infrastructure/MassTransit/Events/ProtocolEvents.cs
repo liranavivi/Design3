@@ -3,11 +3,9 @@
 public class ProtocolCreatedEvent
 {
     public Guid Id { get; set; }
-    public string Address { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public Dictionary<string, object> Configuration { get; set; } = new();
     public DateTime CreatedAt { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
 }
@@ -15,11 +13,9 @@ public class ProtocolCreatedEvent
 public class ProtocolUpdatedEvent
 {
     public Guid Id { get; set; }
-    public string Address { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public Dictionary<string, object> Configuration { get; set; } = new();
     public DateTime UpdatedAt { get; set; }
     public string UpdatedBy { get; set; } = string.Empty;
 }

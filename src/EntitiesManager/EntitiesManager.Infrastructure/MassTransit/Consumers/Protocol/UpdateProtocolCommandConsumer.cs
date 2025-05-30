@@ -38,11 +38,9 @@ public class UpdateProtocolCommandConsumer : IConsumer<UpdateProtocolCommand>
             }
 
             // Update properties
-            existing.Address = context.Message.Address;
             existing.Version = context.Message.Version;
             existing.Name = context.Message.Name;
             existing.Description = context.Message.Description;
-            existing.Configuration = context.Message.Configuration ?? new Dictionary<string, object>();
             existing.UpdatedBy = context.Message.RequestedBy;
 
             var updated = await _repository.UpdateAsync(existing);
@@ -50,11 +48,9 @@ public class UpdateProtocolCommandConsumer : IConsumer<UpdateProtocolCommand>
             await _publishEndpoint.Publish(new ProtocolUpdatedEvent
             {
                 Id = updated.Id,
-                Address = updated.Address,
                 Version = updated.Version,
                 Name = updated.Name,
                 Description = updated.Description,
-                Configuration = updated.Configuration,
                 UpdatedAt = updated.UpdatedAt,
                 UpdatedBy = updated.UpdatedBy
             });

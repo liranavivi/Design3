@@ -57,19 +57,12 @@ public abstract class ProtocolIntegrationTestBase : IAsyncLifetime
         await _mongoContainer.DisposeAsync();
     }
 
-    protected ProtocolEntity CreateTestProtocol(string name = "TestProtocol", string version = "1.0.0", string address = "test://")
+    protected ProtocolEntity CreateTestProtocol(string name = "TestProtocol", string version = "1.0.0")
     {
         return new ProtocolEntity
         {
-            Address = address,
             Version = version,
             Name = name,
-            Configuration = new Dictionary<string, object>
-            {
-                ["testProperty"] = "testValue",
-                ["numericProperty"] = 42,
-                ["booleanProperty"] = true
-            },
             CreatedBy = "TestUser"
         };
     }
