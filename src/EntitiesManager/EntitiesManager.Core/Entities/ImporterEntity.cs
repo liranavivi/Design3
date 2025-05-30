@@ -11,11 +11,6 @@ public class ImporterEntity : BaseEntity
     [StringLength(500, ErrorMessage = "Address cannot exceed 500 characters")]
     public string Address { get; set; } = string.Empty;
 
-    [BsonElement("name")]
-    [Required(ErrorMessage = "Name is required")]
-    [StringLength(200, ErrorMessage = "Name cannot exceed 200 characters")]
-    public string Name { get; set; } = string.Empty;
-
     [BsonElement("configuration")]
     public Dictionary<string, object> Configuration { get; set; } = new();
 
