@@ -49,7 +49,6 @@ public static class OpenTelemetryConfiguration
                     .AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
                     .AddRuntimeInstrumentation()
-                    .AddProcessInstrumentation()
                     .AddMeter("EntitiesManager.*")
                     .AddOtlpExporter(options =>
                     {

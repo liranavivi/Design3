@@ -1,11 +1,12 @@
-namespace EntitiesManager.Infrastructure.MassTransit.Events;
+﻿namespace EntitiesManager.Infrastructure.MassTransit.Events;
 
 public class DestinationCreatedEvent
 {
     public Guid Id { get; set; }
+    public string Address { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
-    public string InputSchema { get; set; } = string.Empty;
+    public Dictionary<string, object> Configuration { get; set; } = new();
     public DateTime CreatedAt { get; set; }
     public string CreatedBy { get; set; } = string.Empty;
 }
@@ -13,9 +14,10 @@ public class DestinationCreatedEvent
 public class DestinationUpdatedEvent
 {
     public Guid Id { get; set; }
+    public string Address { get; set; } = string.Empty;
     public string Version { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
-    public string InputSchema { get; set; } = string.Empty;
+    public Dictionary<string, object> Configuration { get; set; } = new();
     public DateTime UpdatedAt { get; set; }
     public string UpdatedBy { get; set; } = string.Empty;
 }

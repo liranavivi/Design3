@@ -35,7 +35,16 @@ public static class MongoDbConfiguration
 
         // Register repositories
         services.AddScoped<ISourceEntityRepository, SourceEntityRepository>();
+        services.AddScoped<IStepEntityRepository, StepEntityRepository>();
         services.AddScoped<IDestinationEntityRepository, DestinationEntityRepository>();
+        services.AddScoped<IProtocolEntityRepository, ProtocolEntityRepository>();
+        services.AddScoped<IImporterEntityRepository, ImporterEntityRepository>();
+        services.AddScoped<IExporterEntityRepository, ExporterEntityRepository>();
+        services.AddScoped<IProcessorEntityRepository, ProcessorEntityRepository>();
+        services.AddScoped<IProcessingChainEntityRepository, ProcessingChainEntityRepository>();
+        services.AddScoped<IFlowEntityRepository, FlowEntityRepository>();
+        services.AddScoped<ITaskScheduledEntityRepository, TaskScheduledEntityRepository>();
+        services.AddScoped<IScheduledFlowEntityRepository, ScheduledFlowEntityRepository>();
 
         return services;
     }

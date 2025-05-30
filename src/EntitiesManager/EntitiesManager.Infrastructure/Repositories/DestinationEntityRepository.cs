@@ -1,4 +1,4 @@
-using EntitiesManager.Core.Entities;
+﻿using EntitiesManager.Core.Entities;
 using EntitiesManager.Core.Interfaces.Repositories;
 using EntitiesManager.Core.Interfaces.Services;
 using EntitiesManager.Infrastructure.MassTransit.Events;
@@ -18,10 +18,10 @@ public class DestinationEntityRepository : BaseRepository<DestinationEntity>, ID
     {
         var parts = compositeKey.Split('_', 2);
         if (parts.Length != 2)
-            throw new ArgumentException("Invalid composite key format for DestinationEntity. Expected format: 'name_version'");
+            throw new ArgumentException("Invalid composite key format for DestinationEntity. Expected format: 'address_version'");
 
         return Builders<DestinationEntity>.Filter.And(
-            Builders<DestinationEntity>.Filter.Eq(x => x.Name, parts[0]),
+            Builders<DestinationEntity>.Filter.Eq(x => x.Address, parts[0]),
             Builders<DestinationEntity>.Filter.Eq(x => x.Version, parts[1])
         );
     }
@@ -30,7 +30,7 @@ public class DestinationEntityRepository : BaseRepository<DestinationEntity>, ID
     {
         // Composite key index for uniqueness
         var compositeKeyIndex = Builders<DestinationEntity>.IndexKeys
-            .Ascending(x => x.Name)
+            .Ascending(x => x.Address)
             .Ascending(x => x.Version);
 
         var indexOptions = new CreateIndexOptions { Unique = true };
@@ -40,7 +40,15 @@ public class DestinationEntityRepository : BaseRepository<DestinationEntity>, ID
         _collection.Indexes.CreateOne(new CreateIndexModel<DestinationEntity>(
             Builders<DestinationEntity>.IndexKeys.Ascending(x => x.Name)));
         _collection.Indexes.CreateOne(new CreateIndexModel<DestinationEntity>(
+            Builders<DestinationEntity>.IndexKeys.Ascending(x => x.Address)));
+        _collection.Indexes.CreateOne(new CreateIndexModel<DestinationEntity>(
             Builders<DestinationEntity>.IndexKeys.Ascending(x => x.Version)));
+    }
+
+    public async Task<IEnumerable<DestinationEntity>> GetByAddressAsync(string address)
+    {
+        var filter = Builders<DestinationEntity>.Filter.Eq(x => x.Address, address);
+        return await _collection.Find(filter).ToListAsync();
     }
 
     public async Task<IEnumerable<DestinationEntity>> GetByVersionAsync(string version)
@@ -60,9 +68,10 @@ public class DestinationEntityRepository : BaseRepository<DestinationEntity>, ID
         var createdEvent = new DestinationCreatedEvent
         {
             Id = entity.Id,
+            Address = entity.Address,
             Version = entity.Version,
             Name = entity.Name,
-            InputSchema = entity.InputSchema,
+            Configuration = entity.Configuration,
             CreatedAt = entity.CreatedAt,
             CreatedBy = entity.CreatedBy
         };
@@ -74,9 +83,10 @@ public class DestinationEntityRepository : BaseRepository<DestinationEntity>, ID
         var updatedEvent = new DestinationUpdatedEvent
         {
             Id = entity.Id,
+            Address = entity.Address,
             Version = entity.Version,
             Name = entity.Name,
-            InputSchema = entity.InputSchema,
+            Configuration = entity.Configuration,
             UpdatedAt = entity.UpdatedAt,
             UpdatedBy = entity.UpdatedBy
         };

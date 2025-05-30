@@ -1,4 +1,4 @@
-using EntitiesManager.Core.Interfaces.Repositories;
+﻿using EntitiesManager.Core.Interfaces.Repositories;
 using EntitiesManager.Infrastructure.MassTransit.Commands;
 using MassTransit;
 using Microsoft.Extensions.Logging;

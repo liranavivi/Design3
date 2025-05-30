@@ -138,9 +138,90 @@ public static class BsonConfiguration
             });
         }
 
+        if (!BsonClassMap.IsClassMapRegistered(typeof(StepEntity)))
+        {
+            BsonClassMap.RegisterClassMap<StepEntity>(cm =>
+            {
+                cm.AutoMap();
+                cm.SetIgnoreExtraElements(true);
+            });
+        }
+
         if (!BsonClassMap.IsClassMapRegistered(typeof(DestinationEntity)))
         {
             BsonClassMap.RegisterClassMap<DestinationEntity>(cm =>
+            {
+                cm.AutoMap();
+                cm.SetIgnoreExtraElements(true);
+            });
+        }
+
+        if (!BsonClassMap.IsClassMapRegistered(typeof(ProtocolEntity)))
+        {
+            BsonClassMap.RegisterClassMap<ProtocolEntity>(cm =>
+            {
+                cm.AutoMap();
+                cm.SetIgnoreExtraElements(true);
+            });
+        }
+
+        if (!BsonClassMap.IsClassMapRegistered(typeof(ImporterEntity)))
+        {
+            BsonClassMap.RegisterClassMap<ImporterEntity>(cm =>
+            {
+                cm.AutoMap();
+                cm.SetIgnoreExtraElements(true);
+            });
+        }
+
+        if (!BsonClassMap.IsClassMapRegistered(typeof(ExporterEntity)))
+        {
+            BsonClassMap.RegisterClassMap<ExporterEntity>(cm =>
+            {
+                cm.AutoMap();
+                cm.SetIgnoreExtraElements(true);
+            });
+        }
+
+        if (!BsonClassMap.IsClassMapRegistered(typeof(ProcessorEntity)))
+        {
+            BsonClassMap.RegisterClassMap<ProcessorEntity>(cm =>
+            {
+                cm.AutoMap();
+                cm.SetIgnoreExtraElements(true);
+            });
+        }
+
+        if (!BsonClassMap.IsClassMapRegistered(typeof(ProcessingChainEntity)))
+        {
+            BsonClassMap.RegisterClassMap<ProcessingChainEntity>(cm =>
+            {
+                cm.AutoMap();
+                cm.SetIgnoreExtraElements(true);
+            });
+        }
+
+        if (!BsonClassMap.IsClassMapRegistered(typeof(FlowEntity)))
+        {
+            BsonClassMap.RegisterClassMap<FlowEntity>(cm =>
+            {
+                cm.AutoMap();
+                cm.SetIgnoreExtraElements(true);
+            });
+        }
+
+        if (!BsonClassMap.IsClassMapRegistered(typeof(TaskScheduledEntity)))
+        {
+            BsonClassMap.RegisterClassMap<TaskScheduledEntity>(cm =>
+            {
+                cm.AutoMap();
+                cm.SetIgnoreExtraElements(true);
+            });
+        }
+
+        if (!BsonClassMap.IsClassMapRegistered(typeof(ScheduledFlowEntity)))
+        {
+            BsonClassMap.RegisterClassMap<ScheduledFlowEntity>(cm =>
             {
                 cm.AutoMap();
                 cm.SetIgnoreExtraElements(true);
